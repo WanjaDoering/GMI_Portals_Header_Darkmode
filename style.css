@@ -68,14 +68,10 @@ body {
   width:  0;
   height: 0;
 
-  /* Pfad: 226.54×226.54-Quadrat um (0,0), Corner-Radius 14.17 */
-  offset-path: path('M -99.10 -113.27
-                     L  99.10 -113.27 A 14.17 14.17 0 0 1 113.27 -99.10
-                     L 113.27   99.10 A 14.17 14.17 0 0 1  99.10 113.27
-                     L -99.10  113.27 A 14.17 14.17 0 0 1 -113.27 99.10
-                     L -113.27 -99.10 A 14.17 14.17 0 0 1 -99.10 -113.27 Z');
-  offset-rotate:   0deg;                          /* Logo NICHT mit Pfad rotieren */
-  offset-distance: calc(var(--start-frac) * 100%);
+  /* Pfad: 226.54×226.54-Quadrat um (0,0), Corner-Radius 14.17 — einzeilig für Browser-Kompatibilität */
+  offset-path: path('M -99.1 -113.27 L 99.1 -113.27 A 14.17 14.17 0 0 1 113.27 -99.1 L 113.27 99.1 A 14.17 14.17 0 0 1 99.1 113.27 L -99.1 113.27 A 14.17 14.17 0 0 1 -113.27 99.1 L -113.27 -99.1 A 14.17 14.17 0 0 1 -99.1 -113.27 Z');
+  offset-rotate:   0deg;
+  offset-distance: calc(var(--start-frac, 0) * 100%);
 }
 
 /* Logo-Box: weißer Container mit Glow. Bleibt durch offset-rotate:0deg waagerecht. */
