@@ -7,14 +7,9 @@
 /* ─── 1. Theme-Tokens ────────────────────────────────────────────────── */
 
 :root {
-  --bg-page:        #060608;     /* Seiten-Hintergrund (dark) */
-  --orbit-duration: 60s;         /* Geschwindigkeit der Logo-Rotation */
-  --scroll-duration: 16s;        /* Geschwindigkeit des Smartphone-Scrolls */
-  --glow-color:     rgba(68, 164, 220, 0.9);   /* Cyan-Glow für Logo-Boxen */
-}
-
-body.light {
-  --bg-page:        #ffffff;     /* Light-Theme: weißer Hintergrund */
+  --orbit-duration: 60s;                         /* Geschwindigkeit der Logo-Rotation */
+  --scroll-duration: 16s;                        /* Geschwindigkeit des Smartphone-Scrolls */
+  --glow-color:     rgba(68, 164, 220, 0.9);     /* Cyan-Glow für Logo-Boxen */
 }
 
 
@@ -22,10 +17,10 @@ body.light {
 
 * { box-sizing: border-box; }
 
-body {
+html, body {
   margin: 0;
-  padding: 40px 20px;
-  background: var(--bg-page);
+  padding: 0;
+  background: transparent;                       /* Transparent → für Axure-iframe-Embed */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
