@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
   <title>GetMyInvoices Header — Light</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,7 +17,7 @@
     (oder eine Build-Pipeline einrichten).
   -->
 
-  <div class="header-graphic anim-on">
+  <div class="header-graphic">
 
     <!-- ═══════════════════════════════════════════════════════════
          INLINE-SVG: statische Komposition
@@ -129,6 +130,9 @@
     </svg>
 
 
+    <!-- Drag-Hitzone für die Logo-Rotation -->
+    <div class="orbit-hitzone" aria-hidden="true"></div>
+
     <!-- ═══════════════════════════════════════════════════════════
          8 PORTAL-LOGOS auf dem Rechteck-Pfad
          ═══════════════════════════════════════════════════════════ -->
@@ -177,6 +181,9 @@
     </div>
 
   </div>
+
+  <!-- JS-Animation + Drag/Wheel-Interaktion (siehe script.js) -->
+  <script src="script.js"></script>
 
 </body>
 </html>
