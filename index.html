@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
   <title>GetMyInvoices Header — Portal-Verbindungen</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -19,7 +20,7 @@
     Pfad anpassen. SVG, PNG, JPG, WEBP — alle Formate funktionieren.
   -->
 
-  <div class="header-graphic anim-on">
+  <div class="header-graphic">
 
     <!-- ═══════════════════════════════════════════════════════════
          INLINE-SVG: statische Komposition (Box, Center, Smartphone)
@@ -147,6 +148,10 @@
     </svg>
 
 
+    <!-- Drag-Hitzone: liegt unsichtbar über der Portal-Box, fängt Maus-Events
+         für die Drag-Steuerung der Logo-Rotation. -->
+    <div class="orbit-hitzone" aria-hidden="true"></div>
+
     <!-- ═══════════════════════════════════════════════════════════
          8 PORTAL-LOGOS — wandern auf dem Rechteck-Pfad
          Ankerpunkt der Logos: Mittelpunkt der Portal-Box.
@@ -201,6 +206,10 @@
     </div>
 
   </div>
+
+
+  <!-- JS-Animation + Drag/Wheel-Interaktion (siehe script.js) -->
+  <script src="script.js"></script>
 
 </body>
 </html>
