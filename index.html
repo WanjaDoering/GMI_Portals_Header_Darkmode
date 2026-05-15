@@ -167,7 +167,25 @@
               stroke="#3c6e9d" stroke-width="2.85"/>
       </g>
 
-      <!-- LEFT: DHL logo centered on the inner white box -->
+      <!--
+        LEFT: DHL logo centered on the inner white box.
+
+        ★ DYNAMIC SWAP TARGET ★
+        This logo is intended to change per portal subpage:
+          /amazon  → amazon logo here
+          /google  → google logo here
+          /vodafone → vodafone logo here
+          etc.
+
+        In the production templating system (Hugo / Lovable / React), replace
+        the static src with a page-level parameter, e.g.:
+
+          Hugo:    <image href="{{ .Params.portalLogo | default "assets/common/dhl.png" }}" ...
+          React:   <image href={portalLogo || "/assets/common/dhl.png"} ...
+
+        For global swap (one logo for all pages): just replace the file at
+        assets/common/dhl.png — no code change needed.
+      -->
       <image href="assets/common/dhl.png" x="128.5" y="154" width="100" height="35"
              preserveAspectRatio="xMidYMid meet"/>
 

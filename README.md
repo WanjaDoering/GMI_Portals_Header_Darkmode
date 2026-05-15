@@ -136,6 +136,41 @@ duplicate set inside `.phone-scroll` (they must stay in sync for the seamless lo
 </div>
 ```
 
+### Per-page portal logo swap (the "DHL slot")
+
+The DHL logo in the center of the portal box is intended as a **dynamic
+per-page slot**: on the Amazon subpage it should show Amazon, on the Google
+subpage it should show Google, etc. The other 8 orbiting logos around it
+stay constant.
+
+The HTML has a `★ DYNAMIC SWAP TARGET ★` comment on this `<image>` element
+in both `index.html` and `index-light.html` so the spot is easy to find.
+
+**In production templating, wire this up as a page-level parameter:**
+
+```html
+<!-- Hugo -->
+<image href="{{ .Params.portalLogo | default "assets/common/dhl.png" }}" .../>
+
+<!-- React / Lovable -->
+<image href={portalLogo || "/assets/common/dhl.png"} .../>
+```
+
+Then per portal subpage:
+
+```yaml
+# content/portals/amazon/index.md
+portalLogo: /assets/common/amazon.svg
+```
+
+```yaml
+# content/portals/google/index.md
+portalLogo: /assets/common/google.svg
+```
+
+If you instead want **one logo for all pages globally**, just replace the file
+at `assets/common/dhl.png` — no code change needed.
+
 ### Animation speeds
 
 Edit the `:root` block in `style.css`:
@@ -152,11 +187,14 @@ These values are read by `script.js` at startup. Changing them takes effect on n
 
 ### Colors
 
-Most colors are inline in the SVG of `index.html` / `index-light.html`. The page background
-is the only token that switches automatically between themes (`--bg-page`).
+Most colors are inline in the SVG of `index.html` / `index-light.html`. The body
+background is intentionally `transparent` in both variants — the header is meant
+to overlay the existing website page background (the parent page provides its
+own dark or light surroundings).
 
-If you want to add more theme-switching tokens, declare them in `:root` and
-override inside the `body.light { … }` block at the top of `style.css`.
+If you want to add more theme-switching tokens (e.g. shared text color), declare
+them in `:root` and override inside the `body.light { … }` block at the top of
+`style.css`.
 
 ---
 
@@ -165,7 +203,7 @@ override inside the `body.light { … }` block at the top of `style.css`.
 | Element | Dark (`index.html`) | Light (`index-light.html`) |
 |---|---|---|
 | `<body>` class | (none) | `light` |
-| Page background | `#060608` | `#ffffff` |
+| Page background | `transparent` (designed to overlay parent page) | `transparent` (designed to overlay parent page) |
 | Smartphone fill | `#060608` | `#ffffff` |
 | Center circle fill | dark gradient | `#ffffff` |
 | Portal box fill | dark gradient | `none` (transparent) |

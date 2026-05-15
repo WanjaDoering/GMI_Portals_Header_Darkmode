@@ -11,9 +11,6 @@
    ─────────────────────────────────────────────────────────────────────────── */
 
 :root {
-  /* Layout / page */
-  --bg-page:         #060608;                       /* dark page background */
-
   /* Animation timing — read by script.js via getComputedStyle() */
   --orbit-duration:  60;                            /* seconds per full orbit  */
   --scroll-duration: 16;                            /* seconds per scroll loop */
@@ -25,10 +22,6 @@
   color-scheme: dark light;
 }
 
-body.light {
-  --bg-page: #ffffff;                               /* light page background */
-}
-
 
 /* ─── 2. Reset / base ────────────────────────────────────────────────────── */
 
@@ -37,7 +30,11 @@ body.light {
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg-page);
+  /* No background declared on purpose.
+     The header is designed to overlay the existing website page background —
+     the parent page provides its own dark or light surroundings.
+     Standalone preview pages will fall back to the browser default
+     background (usually white). */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
