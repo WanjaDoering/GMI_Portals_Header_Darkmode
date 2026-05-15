@@ -1,188 +1,223 @@
-# GetMyInvoices Website-Header
+# GetMyInvoices Website Header
 
-Animierte Komposition mit drei Hauptbereichen: **Portal-Box** (links, mit 8 wandernden Logos), **Sync-Center** (Mitte, mit Download-Symbol und Belegen) und **Smartphone** (rechts, mit Endlos-Scroll der Export-Ziele).
+Animated header composition for the GetMyInvoices website. Visualizes the
+portal-to-system invoice flow with three regions:
+
+| Region | Content | Animation |
+|---|---|---|
+| **Left** — Portal box | Inner DHL logo + 8 portal logos | Logos orbit along the dashed border (60s/cycle), draggable |
+| **Center** — Sync hub | Download icon, "IN" slips, two sync bubbles | Static |
+| **Right** — Smartphone | 4 accounting export logos | Vertical infinite scroll (16s/cycle), wheel/drag, pause on hover |
+
+Available in two visual variants that share the same animation logic:
+
+- **Dark** (`index.html`) — default, dark page background, cyan glows
+- **Light** (`index-light.html`) — white page background, soft strokes, polished arrow icons
 
 ---
 
-## 📁 Files in diesem Ordner
+## File structure
 
 ```
 Website_Header/
-├── index.html           Dark-Variante (Standard)
-├── index-light.html     Light-Variante (für hellen Seiten-Hintergrund)
-├── style.css            Styling beider Varianten (gemeinsame Datei)
-├── README.md            diese Datei
-└── assets/              alle Bilder, self-contained
-    ├── google.svg, facebook.svg, amazon.svg, adobe.svg, openai.svg,
-    │   vodafone.svg, spotify.svg          ← Portal-Logos um die Box
-    ├── invoices.svg, return-arrow.svg     ← Sync-Center-Elemente
-    ├── dhl.png                            ← DHL-Logo in der Box
-    └── lexware-office.png, datev.png,
-        addison.png, fastbill.png          ← Smartphone-Scroll-Logos
+├── README.md               this file
+├── index.html              Dark variant entry point
+├── index-light.html        Light variant entry point (body.light)
+├── style.css               Shared styles + theme tokens
+├── script.js               Animation loop + drag/wheel/touch handlers
+└── assets/
+    ├── common/             used by BOTH variants
+    │   ├── dhl.png         center logo on the portal box
+    │   ├── datev.png       phone-scroll logo (visible on both themes)
+    │   └── *.svg           8 portal logos: google, facebook, adobe,
+    │                       amazon, openai, spotify, vodafone
+    ├── dark/               used ONLY by index.html
+    │   ├── invoices.svg    "IN" invoice slips (dark version)
+    │   ├── return-arrow.svg sync bubble icon (dark version)
+    │   ├── lexware-office.png
+    │   ├── addison.png
+    │   └── fastbill.png    (phone-scroll logos, original colored versions)
+    └── light/              used ONLY by index-light.html
+        ├── invoices.svg    "IN" slips (soft grey version)
+        ├── return-arrow.svg sync bubble (cyan-filled circle version)
+        ├── arrow.svg       polished arrow used between box → center → phone
+        ├── lexware-office.png
+        ├── addison.png
+        └── fastbill.png    (phone-scroll logos, black versions for white BG)
 ```
+
+**Note on filenames:** files within `dark/` and `light/` use the same names.
+The variant is selected by the folder path, keeping the HTML readable.
 
 ---
 
-## 🎨 Was wo passiert (Layout)
+## Quick start
 
-| Bereich | Was ist drin | Animation |
-|---|---|---|
-| **Portal-Box** (links) | Inneres weißes Quadrat mit DHL-Logo + 8 Portal-Logos außen | Logos wandern entlang des dashed Border (60s pro Runde) |
-| **Sync-Center** (Mitte) | Großer Kreis mit Download-Pfeil, 2 Sync-Bubbles, 2 „IN"-Belege | Statisch |
-| **Smartphone** (rechts) | 4 Export-Logos (Lexware, DATEV, Addison, FastBill) | Endlos-Scroll von unten nach oben (16s pro Cycle) |
+### Open locally
+
+```bash
+# Dark variant
+open index.html
+
+# Light variant
+open index-light.html
+```
+
+No build step required — pure HTML/CSS/JS/SVG, runs in any modern browser.
+
+### Deploy to GitHub Pages
+
+This repo is set up to be served as-is by GitHub Pages.
+
+1. Push to the `main` branch of your GitHub repository.
+2. Open **Settings → Pages** → **Source: Deploy from a branch** → branch `main`, folder `/ (root)` → **Save**.
+3. After 1–3 minutes, two URLs become live:
+
+```
+Dark:  https://<your-username>.github.io/<repo-name>/
+Light: https://<your-username>.github.io/<repo-name>/index-light.html
+```
+
+### Embed in Axure RP
+
+1. In your Axure page, add an **Inline Frame** widget (Default library → Inline Frame).
+2. Set its size to **824 × 344 px** (the canvas size of the composition).
+3. Double-click the frame → **Frame Target** → **Link to an external URL or local file** → paste the GitHub Pages URL.
+4. Set **Show scrollbars: Never**.
+5. Preview in Axure — the header runs live inside the mockup, including all animation.
+
+Tip: add a small Axure note/post-it next to the frame with the GitHub repo URL
+so developers reviewing the mockup can find the source code immediately.
 
 ---
 
-## 🔁 Logo-Tausch (häufiger Workflow)
+## Customization guide
 
-### Pro Portal-Landingpage andere Logos zeigen?
+### Swap a portal logo
 
-**Variante A — Datei ersetzen** (einfachster Weg):
-Lege ein neues Logo unter dem gleichen Filename in `assets/` ab. Funktioniert sofort, kein Code-Änderung.
-Beispiel: `assets/google.svg` durch eigenes Google-Logo überschreiben → fertig.
+The 8 orbiting logos live in `/assets/common/`. The fastest way to change one:
 
-**Variante B — Pfad ändern**:
-In `index.html` die `<img src="assets/...">` oder `<image href="assets/...">` Pfade auf neue Dateien zeigen lassen. Funktioniert mit jedem Bildformat: SVG, PNG, JPG, WEBP, GIF.
+**Option A — replace the file** (works for both variants at once):
 
-### Wo sitzen die 8 Portal-Logo-Slots?
-
-```
-              ┌─────────────────────┐
-              │  [Google]  [Facebook] │
-              │                       │
-   [Amazon]   │     Portal-Box        │   [Adobe]
-              │                       │
-   [OpenAI]   │                       │   [Google]
-              │                       │
-              │ [Vodafone]  [Spotify] │
-              └─────────────────────┘
+```bash
+# Drop a new google.svg over the existing one
+cp my-new-google.svg assets/common/google.svg
 ```
 
-Im HTML in der Reihenfolge: oben-links → oben-rechts → links-oben → rechts-oben → links-unten → rechts-unten → unten-links → unten-rechts.
+**Option B — change the path** (point to a different file):
 
-### Mehr/weniger Smartphone-Exports?
+```html
+<!-- in index.html / index-light.html -->
+<div class="logo-anchor" style="--start-frac: 0.05;">
+  <div class="logo-box"><img src="assets/common/google.svg" alt="Google"></div>
+</div>
+```
 
-In `index.html` im `<div class="phone-scroll">` Block: weitere `<img>` Tags hinzufügen ODER vorhandene löschen.
-**Wichtig:** Der Block ist DOPPELT — Originale + Duplikate. Beide Sets müssen synchron bleiben für den seamless Loop.
+Supported formats: SVG, PNG, JPG, WEBP, GIF.
 
----
+### Swap a phone-scroll logo
 
-## ⚙️ Konfiguration
+`assets/dark/` holds the colored originals (visible on the dark phone),
+`assets/light/` holds the black versions (visible on the white phone).
+DATEV lives in `assets/common/` because the original version works on both.
 
-In `style.css` ganz oben:
+When **adding** or **removing** a logo, edit both the original set AND the
+duplicate set inside `.phone-scroll` (they must stay in sync for the seamless loop):
+
+```html
+<div class="phone-scroll">
+  <img src="assets/dark/lexware-office.png" alt="Lexware Office">
+  <img src="assets/common/datev.png"        alt="DATEV">
+  ...
+  <!-- duplicate set -->
+  <img src="assets/dark/lexware-office.png" alt="" aria-hidden="true">
+  <img src="assets/common/datev.png"        alt="" aria-hidden="true">
+  ...
+</div>
+```
+
+### Animation speeds
+
+Edit the `:root` block in `style.css`:
 
 ```css
 :root {
-  --orbit-duration:  60s;        /* Logo-Rotation um die Box */
-  --scroll-duration: 16s;        /* Smartphone-Scroll */
-  --glow-color: rgba(68, 164, 220, 0.9);   /* Cyan-Glow */
+  --orbit-duration:  60;    /* seconds per orbit cycle (logos around the box) */
+  --scroll-duration: 16;    /* seconds per scroll cycle (phone)               */
+  --glow-color:      rgba(68, 164, 220, 0.9);   /* logo-box halo color        */
 }
 ```
 
-Werte ändern → Animation ändert sich live.
+These values are read by `script.js` at startup. Changing them takes effect on next reload.
+
+### Colors
+
+Most colors are inline in the SVG of `index.html` / `index-light.html`. The page background
+is the only token that switches automatically between themes (`--bg-page`).
+
+If you want to add more theme-switching tokens, declare them in `:root` and
+override inside the `body.light { … }` block at the top of `style.css`.
 
 ---
 
-## 🌗 Dark- / Light-Theme
+## How the two variants differ
 
-- **Dark** (Standard): `index.html` → `<body>` ohne Klasse → `--bg-page: #060608`
-- **Light**: `index-light.html` → `<body class="light">` → `--bg-page: #ffffff`
-
-Beide Files nutzen **dieselbe `style.css`**. Im CSS gibt es einen `body.light { … }` Block der theme-abhängige Tokens überschreibt. Wenn du weitere Werte für den Light-Mode anpassen willst (z.B. dunklere Glow-Farbe für besseren Kontrast), ergänze sie dort.
-
----
-
-## 🌐 Auf GitHub Pages deployen (für Axure-Embed + Entwickler-Übergabe)
-
-**Ziel:** Eine öffentliche URL die du in Axure als iframe einbindest und dem Entwickler-Team schickst.
-
-GitHub Pages ist gratis und genau dann sinnvoll, wenn die Entwickler den Code sowieso auch versionieren / forken / klonen sollen. Drei Wege zum Upload — wähle was am bequemsten ist:
-
-### Option A — GitHub Web-UI (kein Installations-Aufwand)
-
-1. Auf [github.com](https://github.com) einloggen → **„New repository"** klicken
-2. **Repository name**: z.B. `gmi-header-mockup` · Visibility: **Public** (Pages auf Private braucht Pro-Account)
-3. Häkchen bei **„Add a README file"** setzen → **„Create repository"**
-4. Im neuen Repo auf **„Add file" → „Upload files"** klicken
-5. Den **kompletten Inhalt** von `Website_Header/` (also `index.html`, `index-light.html`, `style.css`, `README.md`, `assets/`-Ordner) ins Browser-Fenster ziehen
-6. Ganz unten **„Commit changes"** klicken
-7. Im Repo zu **Settings → Pages** wechseln
-8. Bei **„Source"**: **„Deploy from a branch"** wählen, Branch **`main`**, Folder **`/ (root)`** → **„Save"**
-9. Nach **1–3 Minuten** ist die Live-URL aktiv (oben in der Pages-Section sichtbar)
-
-### Option B — GitHub Desktop (GUI, etwas komfortabler bei Updates)
-
-1. [GitHub Desktop](https://desktop.github.com/) installieren + einloggen
-2. **„File → New Repository"** → Path = lokaler Ordner für Repo
-3. Den Inhalt von `Website_Header/` ins lokale Repo-Verzeichnis kopieren
-4. In GitHub Desktop: Commit-Message + **„Commit to main"** + **„Publish repository"**
-5. Auf [github.com](https://github.com) → Repo öffnen → **Settings → Pages** wie in Option A Schritt 7–8
-
-### Option C — Git CLI (für Entwickler)
-
-```bash
-cd Website_Header
-git init
-git add .
-git commit -m "initial commit"
-gh repo create gmi-header-mockup --public --source=. --push
-gh api repos/:owner/gmi-header-mockup/pages -X POST -F source[branch]=main -F source[path]=/
-```
-
-### Live-URLs (nach Pages-Aktivierung)
-
-```
-Dark:   https://DEIN-USERNAME.github.io/gmi-header-mockup/
-Light:  https://DEIN-USERNAME.github.io/gmi-header-mockup/index-light.html
-```
-
-Bei **Updates**: neue Files in das Repo committen / hochladen → Pages re-deployt automatisch in 1–3 Minuten.
-
----
-
-## 🖼️ In Axure RP einbinden
-
-1. Auf der Axure-Page das **„Inline Frame"-Widget** aus der Library ziehen (in „Default → Inline Frame")
-2. **Größe**: 824 × 344 px (= Original-Größe der Komposition)
-3. **Doppelklick** auf den Frame → **„Frame Target"** → **„Link to an external URL or local file"**
-4. URL eintragen:
-   - Dark-Page in Axure: `https://DEIN-USERNAME.github.io/gmi-header-mockup/`
-   - Light-Page in Axure: `https://DEIN-USERNAME.github.io/gmi-header-mockup/index-light.html`
-5. **„Show scrollbars: Never"** auswählen, damit keine grauen Scroll-Balken erscheinen
-6. Preview in Axure → Header läuft live im Mockup, inklusive Animation
-
-**Lokale Variante** (ohne GitHub, nur auf deinem Mac):
-URL: `file:///Users/wanja.doering/Arbeit/AD/26-04-2026_FinanceOS_Webinar/Website_Header/index.html`
-Funktioniert nur auf deinem Computer — für Sharing mit Kollegen zwingend GitHub Pages oder ähnliches Hosting.
-
----
-
-## 👨‍💻 Entwickler-Übergabe (Lovable / Hugo)
-
-Der Code ist Framework-agnostisch — pure HTML, CSS, SVG. Die Entwickler können:
-
-1. **Den `Website_Header/` Ordner direkt einbauen** — funktioniert sofort
-2. **CSS-Variablen anpassen** an die Brand-Style-Guides (ggf. `--glow-color`, `--orbit-duration`)
-3. **In ein Component-System überführen** — die Logos als Daten-Liste (z.B. in Hugo via `data/portals.yaml`), das HTML als Template generiert
-
-Wichtige Browser-Features die genutzt werden:
-- **CSS `offset-path`** für Pfad-Animation (Chrome 55+, Firefox 72+, Safari 16+)
-- **CSS `mask-image`** für Smartphone-Scroll-Fade (Chrome 120+, Safari 16+)
-- **SVG-Filter** mit `feGaussianBlur` + `feFlood` für Cyan-Glows (alle Browser)
-
-Alle Features sind in modernen Browsern (2024+) stabil.
-
----
-
-## 🛠️ Häufige Anpassungen — Quick Reference
-
-| Was ändern | Wo | Wie |
+| Element | Dark (`index.html`) | Light (`index-light.html`) |
 |---|---|---|
-| Logos austauschen | `assets/` | Datei ersetzen oder `<img src=…>` Pfad ändern |
-| Rotations-Speed | `style.css` `:root` | `--orbit-duration: 60s` |
-| Scroll-Speed | `style.css` `:root` | `--scroll-duration: 16s` |
-| Hintergrund-Farbe | `style.css` `:root` | `--bg-page: #060608` |
-| Glow-Farbe | `style.css` `:root` | `--glow-color: rgba(...)` |
-| Animation aus | `index.html` | `class="header-graphic anim-on"` → `class="header-graphic"` |
-| DHL-Logo (Mitte) | `index.html` | `<image href="assets/dhl.png" …>` |
-| Smartphone-Logos | `index.html` | `<div class="phone-scroll">` Block |
+| `<body>` class | (none) | `light` |
+| Page background | `#060608` | `#ffffff` |
+| Smartphone fill | `#060608` | `#ffffff` |
+| Center circle fill | dark gradient | `#ffffff` |
+| Portal box fill | dark gradient | `none` (transparent) |
+| All strokes | `#3c6e9d` (dark blue) | `#dde1ea` (soft grey-blue) |
+| Box-to-box arrows | 2 inline SVG paths (white fill) | external `assets/light/arrow.svg` |
+| "IN" slips graphic | `assets/dark/invoices.svg` | `assets/light/invoices.svg` |
+| Sync bubble graphic | `assets/dark/return-arrow.svg` | `assets/light/return-arrow.svg` |
+| Phone logos (Lexware, Addison, FastBill) | `assets/dark/*.png` (colored) | `assets/light/*.png` (black) |
+| Phone logo DATEV | `assets/common/datev.png` | `assets/common/datev.png` |
+| 8 portal logos | `assets/common/*.svg` | `assets/common/*.svg` |
+| DHL center logo | `assets/common/dhl.png` | `assets/common/dhl.png` |
+
+---
+
+## Developer integration notes (Hugo / Lovable / React)
+
+The code is framework-agnostic. To migrate into a build system:
+
+- **Hugo:** Drop the folder into `static/header/` or wrap it in a layout/partial.
+  The 8 portal logos can be moved to `data/portals.yaml` and the markup generated
+  from that with a `range` block.
+- **Lovable / React:** Convert each region (Portal box, Center, Phone) into its
+  own component. Animation logic in `script.js` can be ported into a React hook
+  or remain as a side-effect on mount.
+- **Asset bundling:** Tools like Vite/Webpack will handle the asset imports
+  automatically as long as the directory layout is preserved.
+
+### Browser features used
+
+- **CSS `offset-path`** — drives the orbital logo motion (Chrome 55+, Firefox 72+, Safari 16+)
+- **CSS `mask-image`** — top/bottom fade on the phone scroll (Chrome 120+, Safari 16+)
+- **SVG filters** (`feGaussianBlur` + `feFlood`) — cyan glows (all modern browsers)
+- **`requestAnimationFrame`** — the JS animation loop (universal)
+
+All features are stable in modern browsers (2024+). No polyfills required.
+
+### Accessibility notes
+
+- The SVG composition is marked `aria-hidden="true"` — it is purely decorative.
+- Portal and phone-scroll `<img>` tags have meaningful `alt` text on the
+  originals; duplicate set images use `alt=""` + `aria-hidden="true"` since they
+  represent the same logos.
+- The drag interactions use `cursor: grab` / `grabbing` for visual feedback.
+
+---
+
+## Maintenance checklist
+
+When updating the header:
+
+- [ ] Test both `index.html` and `index-light.html` after structural changes
+- [ ] If a logo changes: prefer file-replace in `/assets/common/` so both variants update at once
+- [ ] When editing `.phone-scroll`: keep the duplicate set in sync with the original set
+- [ ] When adding new theme-switching tokens: declare in `:root` AND override in `body.light`
+- [ ] After GitHub Pages deploys, hard-refresh (Cmd+Shift+R) to bypass CDN cache

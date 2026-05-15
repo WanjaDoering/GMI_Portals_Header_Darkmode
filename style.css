@@ -1,26 +1,36 @@
-/* ═══════════════════════════════════════════════════════════════════════
-   GetMyInvoices Website-Header — Stylesheet
-   Dark-Theme = Default. Light-Theme via <body class="light"> (siehe unten).
-   ═══════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════════════
+   GetMyInvoices Website Header — Stylesheet
+   Shared by index.html (Dark / default) and index-light.html (body.light).
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 
-/* ─── 1. Theme-Tokens ────────────────────────────────────────────────── */
+/* ─── 1. Theme tokens ──────────────────────────────────────────────────────
+   The DARK theme is the default. Light theme is activated by adding
+   `class="light"` to <body>. Add additional light-mode overrides to the
+   `body.light { … }` block below if more tokens need to switch.
+   ─────────────────────────────────────────────────────────────────────────── */
 
 :root {
-  --bg-page:        #060608;                     /* Seiten-Hintergrund (dark) */
-  --orbit-duration: 60;                          /* Sekunden pro Logo-Rotation (JS-gesteuert) */
-  --scroll-duration: 16;                         /* Sekunden pro Smartphone-Scroll (JS-gesteuert) */
-  --glow-color:     rgba(68, 164, 220, 0.9);     /* Cyan-Glow für Logo-Boxen */
+  /* Layout / page */
+  --bg-page:         #060608;                       /* dark page background */
 
+  /* Animation timing — read by script.js via getComputedStyle() */
+  --orbit-duration:  60;                            /* seconds per full orbit  */
+  --scroll-duration: 16;                            /* seconds per scroll loop */
+
+  /* Logo box glow — light cyan halo around the white logo containers */
+  --glow-color:      rgba(68, 164, 220, 0.9);
+
+  /* Browser-level color scheme hint */
   color-scheme: dark light;
 }
 
 body.light {
-  --bg-page: #ffffff;                            /* Light-Theme */
+  --bg-page: #ffffff;                               /* light page background */
 }
 
 
-/* ─── 2. Reset / Base ────────────────────────────────────────────────── */
+/* ─── 2. Reset / base ────────────────────────────────────────────────────── */
 
 * { box-sizing: border-box; }
 
@@ -32,7 +42,7 @@ html, body {
 }
 
 
-/* ─── 3. Header-Komposition (fixe Größe der Original-Designvorlage) ──── */
+/* ─── 3. Header composition (fixed size of the original design canvas) ──── */
 
 .header-graphic {
   position: relative;
@@ -48,12 +58,13 @@ html, body {
 }
 
 
-/* ─── 4. Logo-Orbit (Portal-Logos auf Rechteck-Pfad) ─────────────────── */
+/* ─── 4. Logo orbit (8 portal logos animated on a rectangular path) ─────── */
 
-/* Container, sitzt auf dem Mittelpunkt der Portal-Box.
-   Box-Mitte in SVG-Koords: (178.58, 171.55) bei viewBox 824x344
-   → links 21.67%, oben 49.87% des Containers.
-   Cursor signalisiert dass die Logos draggable sind. */
+/*
+  The container sits at the CENTER of the portal box.
+  SVG coords of the portal box center: (178.58, 171.55) within the 824×344
+  viewBox → 21.67% from left, 49.87% from top of the .header-graphic.
+*/
 .logos-orbit {
   position: absolute;
   left: 21.67%;
@@ -62,8 +73,11 @@ html, body {
   height: 0;
 }
 
-/* Drag-Hitzone: unsichtbares Quadrat über der Portal-Box, fängt Maus-Events.
-   Größe = Box-Diagonale + Logo-Radius, damit auch die Logos außen erfasst werden. */
+/*
+  Drag hitzone — invisible overlay above the portal box that captures
+  mouse/touch events for the orbit-drag interaction. Sized slightly larger
+  than the box so the logos that float along the border are also covered.
+*/
 .orbit-hitzone {
   position: absolute;
   left: 7.9%;
@@ -73,11 +87,12 @@ html, body {
   cursor: grab;
   z-index: 10;
 }
-
 .orbit-hitzone.dragging { cursor: grabbing; }
 
-/* Jeder Anchor wandert entlang demselben abgerundeten Rechteck.
-   --start-frac (0…1) = Initial-Position auf dem Pfad. */
+/*
+  Each .logo-anchor follows the same rounded-rectangle path.
+  `--start-frac` (0.0 to 1.0) sets the logo's initial position on the path.
+*/
 .logo-anchor {
   position: absolute;
   top:  0;
@@ -85,13 +100,17 @@ html, body {
   width:  0;
   height: 0;
 
-  /* Pfad: 226.54×226.54-Quadrat um (0,0), Corner-Radius 14.17 — einzeilig für Browser-Kompatibilität */
+  /* Path: 226.54 × 226.54 square centered at (0,0), corner radius 14.17.
+     Kept on one line for broad browser compatibility. */
   offset-path: path('M -99.1 -113.27 L 99.1 -113.27 A 14.17 14.17 0 0 1 113.27 -99.1 L 113.27 99.1 A 14.17 14.17 0 0 1 99.1 113.27 L -99.1 113.27 A 14.17 14.17 0 0 1 -113.27 99.1 L -113.27 -99.1 A 14.17 14.17 0 0 1 -99.1 -113.27 Z');
   offset-rotate:   0deg;
   offset-distance: calc(var(--start-frac, 0) * 100%);
 }
 
-/* Logo-Box: weißer Container mit Glow. Bleibt durch offset-rotate:0deg waagerecht. */
+/*
+  Each logo sits in a white container with a soft cyan glow.
+  `offset-rotate: 0deg` on the parent keeps the box horizontal as it travels.
+*/
 .logo-box {
   position: absolute;
   top:  0;
@@ -113,7 +132,7 @@ html, body {
 }
 
 
-/* ─── 5. Smartphone-Inhalt (Endlos-Scroll der Export-Logos) ──────────── */
+/* ─── 5. Smartphone content (infinite scroll of export logos) ───────────── */
 
 .phone-content {
   position: absolute;
@@ -122,9 +141,9 @@ html, body {
   width:  14.3%;
   height: 63%;
   overflow: hidden;
-  cursor: ns-resize;                             /* signalisiert Wheel-/Drag-Interaktion */
+  cursor: ns-resize;                                /* hint for wheel/drag */
 
-  /* Fade-Mask: oben/unten transparent, Mitte voll sichtbar */
+  /* Top/bottom fade mask so logos fade in/out instead of cutting hard */
   -webkit-mask-image: linear-gradient(to bottom,
     transparent 0%, #000 15%, #000 85%, transparent 100%);
           mask-image: linear-gradient(to bottom,
@@ -137,7 +156,8 @@ html, body {
   align-items: center;
   gap: 50px;
   padding: 40px 8px;
-  /* transform wird per JS gesetzt — keine CSS-Animation mehr */
+  /* transform is set by script.js — no CSS animation here (would conflict
+     with the JS-controlled scroll position) */
 }
 
 .phone-scroll img {
@@ -149,7 +169,8 @@ html, body {
 }
 
 
-/* ─── 6. Animation wird komplett per JS gesteuert ────────────────────── */
-/* Siehe <script> in index.html — RequestAnimationFrame-Loop, mit
-   Drag/Wheel-Interaktion. Kein CSS-Animation hier (würde mit JS-State
-   konkurrieren). */
+/* ─── 6. Animation is JS-driven ─────────────────────────────────────────────
+   See script.js for the requestAnimationFrame loop and drag/wheel
+   interaction handlers. No CSS animations are defined here because
+   they would compete with the JS state.
+   ─────────────────────────────────────────────────────────────────────────── */
