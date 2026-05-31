@@ -93,25 +93,7 @@
       </g>
 
       <!-- ═══════════════ MIDDLE: SYNC CENTER ═══════════════ -->
-
-      <!-- ARROW 2: Center → Phone — same scale (0.7) as Arrow 1.
-           Drawn BEFORE the circle so its tail is hidden behind the circle bottom.
-           Tip touches the phone top border. -->
-      <g transform="translate(190 419) rotate(90) scale(0.7) translate(-309.28 -168.87)" fill="#fff">
-        <path d="M 286.6 174.19 L 319.55 174.00
-                 a 3.95 3.95 0 0 0 3.92 -3.97 v -0.68
-                 a 3.95 3.95 0 0 0 -3.97 -3.92 L 286.55 165.62
-                 a 3.95 3.95 0 0 0 -3.92 3.97 v 0.68
-                 a 3.95 3.95 0 0 0 3.97 3.92 z"/>
-        <path d="M 322.22 159.07 l 9.79 9.2 a 1.94 1.94 0 0 1 0 2.82
-                 l -9.79 9.2 a 1.27 1.27 0 0 1 -1.75 0
-                 a 1.13 1.13 0 0 1 -0.36 -0.82 v -19.59
-                 a 1.16 1.16 0 0 1 1.24 -1.16
-                 a 1.27 1.27 0 0 1 0.87 0.34"/>
-      </g>
-
-      <!-- "IN" invoice slips — drawn FIRST so they appear partly covered by the circle.
-           Positioned at the RIGHT side of the circle, more outside than before. -->
+      <!-- "IN" invoice slips — drawn FIRST so they appear partly covered by the circle. -->
       <image href="assets/dark/invoices.svg" x="232" y="315" width="60" height="58"/>
 
       <!-- Sync circle (opaque fill hides the part of the slips behind it) -->
@@ -145,11 +127,24 @@
                x="170" y="385" width="40" height="40"/>
       </g>
 
+      <!-- ═══════════════ ARROW 2: Center → Phone (same scale 0.7 as Arrow 1) ═══════════════ -->
+      <!-- Fully visible between the bottom return-arrow and the phone border. -->
+      <g transform="translate(190 444) rotate(90) scale(0.7) translate(-309.28 -168.87)" fill="#fff">
+        <path d="M 286.6 174.19 L 319.55 174.00
+                 a 3.95 3.95 0 0 0 3.92 -3.97 v -0.68
+                 a 3.95 3.95 0 0 0 -3.97 -3.92 L 286.55 165.62
+                 a 3.95 3.95 0 0 0 -3.92 3.97 v 0.68
+                 a 3.95 3.95 0 0 0 3.97 3.92 z"/>
+        <path d="M 322.22 159.07 l 9.79 9.2 a 1.94 1.94 0 0 1 0 2.82
+                 l -9.79 9.2 a 1.27 1.27 0 0 1 -1.75 0
+                 a 1.13 1.13 0 0 1 -0.36 -0.82 v -19.59
+                 a 1.16 1.16 0 0 1 1.24 -1.16
+                 a 1.27 1.27 0 0 1 0.87 0.34"/>
+      </g>
+
       <!-- ═══════════════ BOTTOM: SMARTPHONE ═══════════════ -->
-      <!-- Moved up to y=435 so Arrow 2 (scale 0.7, tip at y=435) lands exactly on the phone border,
-           and Arrow 2's tail (y=403) sits inside the circle for the "hidden behind GMI" look. -->
       <g filter="url(#cyanGlow)">
-        <rect x="125" y="435" width="130" height="255"
+        <rect x="125" y="460" width="130" height="230"
               rx="11.29" ry="11.29"
               fill="#060608" stroke="#3c6e9d" stroke-width="2.85"/>
       </g>

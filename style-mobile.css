@@ -111,19 +111,19 @@ html, body {
 
 
 /* ─── 5. Smartphone content (infinite scroll of export logos) ────────────
-   Phone in this layout (moved up so Arrow 2's tip lands on its border):
-     SVG coords: x=125, y=435, 130×255
+   Phone in this layout (moderately closer to GMI center than 380×740 version):
+     SVG coords: x=125, y=460, 130×230
      Visible scroll area inside (with bezel padding):
-       x=137, y=460, width=106, height=205
+       x=137, y=485, width=106, height=180
      As % of 380×700:
-       left=36.05%, top=65.71%, width=27.89%, height=29.29%
+       left=36.05%, top=69.29%, width=27.89%, height=25.71%
    ─────────────────────────────────────────────────────────────────────────── */
 .phone-content {
   position: absolute;
   left:  36.05%;
-  top:   65.71%;
+  top:   69.29%;
   width:  27.89%;
-  height: 29.29%;
+  height: 25.71%;
   overflow: hidden;
   cursor: ns-resize;
 
