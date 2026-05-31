@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <title>GetMyInvoices Header — Mobile / Light</title>
+  <link rel="stylesheet" href="style-mobile.css">
+</head>
+<body class="light">
+
+  <!--
+    ═══════════════════════════════════════════════════════════════════════════
+    GetMyInvoices Website Header — MOBILE (portrait) LIGHT variant
+    ───────────────────────────────────────────────────────────────────────────
+    Same vertical layout as index-mobile.html (Dark). Only theme differences:
+
+      ─ <body class="light"> (parity with desktop light convention)
+      ─ Phone background, sync circle, inner DHL box: WHITE fill instead of dark.
+      ─ All strokes use #dde1ea (soft blue-grey) instead of #3c6e9d.
+      ─ Portal box has fill="none" (transparent) instead of gradient.
+      ─ The two arrows use the polished assets/light/arrow.svg (rotated 90°,
+        scaled 0.7) instead of inline white paths.
+      ─ Invoice slips, sync bubbles, phone logos come from /assets/light/.
+      ─ DHL + DATEV + 8 portal logos are shared (/assets/common/).
+
+    Animation logic is shared via script.js (no theme switch needed).
+    See README.md for full overview.
+    ═══════════════════════════════════════════════════════════════════════════
+  -->
+
+  <div class="header-graphic">
+
+    <svg class="bg-svg" viewBox="0 0 380 700"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+      <defs>
+        <!--
+          Gradient kept for structural parity with dark variant but unused here
+          (light surfaces use solid white fills).
+        -->
+        <linearGradient id="bgGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"   stop-color="#000000"/>
+          <stop offset="24%"  stop-color="#082540"/>
+          <stop offset="46%"  stop-color="#082540"/>
+          <stop offset="100%" stop-color="#000000"/>
+        </linearGradient>
+
+        <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur"/>
+          <feFlood flood-color="#44A4DC" flood-opacity="0.95" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+
+        <filter id="cyanGlowStrong" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="18" result="blur"/>
+          <feFlood flood-color="#44A4DC" flood-opacity="1" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- ═══════════════ TOP: PORTAL BOX ═══════════════ -->
+      <!-- Light variant: NO fill (transparent), soft stroke -->
+      <rect x="80" y="20" width="220" height="220" rx="14" ry="14"
+            fill="none"
+            stroke="#dde1ea" stroke-width="2.85"
+            stroke-dasharray="8,4"/>
+
+      <!-- Inner white box (visually contains the swappable portal logo) -->
+      <g filter="url(#cyanGlow)">
+        <rect x="125" y="65" width="130" height="130" rx="8" ry="8"
+              fill="#ffffff" stroke="#dde1ea" stroke-width="2.85"/>
+      </g>
+
+      <!-- DHL logo (★ DYNAMIC SWAP TARGET — replace per portal subpage) -->
+      <image href="assets/common/dhl.png" x="140" y="111" width="100" height="35"
+             preserveAspectRatio="xMidYMid meet"/>
+
+      <!-- ═══════════════ ARROW 1: Portal → Center (polished light SVG, rotated 90°, scaled 0.7) ═══════════════ -->
+      <g transform="translate(190 261) rotate(90) scale(0.7)">
+        <image href="assets/light/arrow.svg"
+               x="-20.91" y="-10.96" width="41.82" height="21.91"/>
+      </g>
+
+      <!-- ═══════════════ MIDDLE: SYNC CENTER ═══════════════ -->
+      <!-- "IN" invoice slips — light variant. Drawn FIRST so the white circle covers the overlap. -->
+      <image href="assets/light/invoices.svg" x="232" y="315" width="60" height="58"/>
+
+      <!-- Sync circle — WHITE fill, soft stroke -->
+      <g filter="url(#cyanGlow)">
+        <circle cx="190" cy="355" r="53"
+                fill="#ffffff" stroke="#dde1ea" stroke-width="3"/>
+      </g>
+
+      <!-- Download icon inside circle (scaled from desktop original) -->
+      <g transform="translate(190 355) scale(0.65) translate(-465.63 -171.55)">
+        <path fill="#4499d1" d="M465.63,122.19 c-27.25,0-49.36,22.11-49.36,49.36
+                                s22.11,49.36,49.36,49.36 s49.36-22.11,49.36-49.36
+                                s-22.11-49.36-49.36-49.36 z
+                                M465.63,209.77 c-21.08,0-38.22-17.14-38.22-38.22
+                                c0-19.16,14.16-35.06,32.56-37.8 v44.96
+                                l-15.08-14.96 v17.31 l20.57,20.57 l20.74-20.57
+                                v-17.48 l-15.34,15.21 v-45.1
+                                c18.61,2.56,32.99,18.55,32.99,37.85
+                                c0,21.08-17.14,38.22-38.22,38.22 z"/>
+      </g>
+
+      <!-- TOP return-arrow bubble — light variant (cyan icon). In front of circle, overlapping top. -->
+      <g filter="url(#cyanGlowStrong)">
+        <image href="assets/light/return-arrow.svg"
+               x="170" y="283" width="40" height="40"/>
+      </g>
+
+      <!-- BOTTOM return-arrow bubble — light variant. In front of circle, overlapping bottom. -->
+      <g filter="url(#cyanGlowStrong)">
+        <image href="assets/light/return-arrow.svg"
+               x="170" y="385" width="40" height="40"/>
+      </g>
+
+      <!-- ═══════════════ ARROW 2: Center → Phone (polished light SVG, rotated 90°, scaled 0.7) ═══════════════ -->
+      <g transform="translate(190 444) rotate(90) scale(0.7)">
+        <image href="assets/light/arrow.svg"
+               x="-20.91" y="-10.96" width="41.82" height="21.91"/>
+      </g>
+
+      <!-- ═══════════════ BOTTOM: SMARTPHONE ═══════════════ -->
+      <!-- Light variant: WHITE fill, soft stroke -->
+      <g filter="url(#cyanGlow)">
+        <rect x="125" y="460" width="130" height="230"
+              rx="11.29" ry="11.29"
+              fill="#ffffff" stroke="#dde1ea" stroke-width="2.85"/>
+      </g>
+
+    </svg>
+
+
+    <!-- Drag hitzone for portal orbit (covers portal box + orbital extension) -->
+    <div class="orbit-hitzone" aria-hidden="true"></div>
+
+
+    <!-- ═══════════════ 8 PORTAL LOGOS — orbit (shared with dark variant) ═══════════════ -->
+    <div class="logos-orbit">
+      <div class="logo-anchor" style="--start-frac: 0.05;">
+        <div class="logo-box"><img src="assets/common/google.svg" alt="Google"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.174;">
+        <div class="logo-box"><img src="assets/common/facebook.svg" alt="Facebook"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.30;">
+        <div class="logo-box"><img src="assets/common/adobe.svg" alt="Adobe"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.424;">
+        <div class="logo-box"><img src="assets/common/google.svg" alt="Google"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.55;">
+        <div class="logo-box"><img src="assets/common/spotify.svg" alt="Spotify"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.674;">
+        <div class="logo-box"><img src="assets/common/vodafone.svg" alt="Vodafone"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.80;">
+        <div class="logo-box"><img src="assets/common/openai.svg" alt="OpenAI"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.924;">
+        <div class="logo-box"><img src="assets/common/amazon.svg" alt="Amazon"></div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════ SMARTPHONE CONTENT — infinite scroll ═══════════════ -->
+    <!-- Light variant uses BLACK Lexware/Addison/FastBill logos (visible on white phone). DATEV is shared. -->
+    <div class="phone-content">
+      <div class="phone-scroll">
+        <img src="assets/light/lexware-office.png" alt="Lexware Office">
+        <img src="assets/common/datev.png"         alt="DATEV">
+        <img src="assets/light/addison.png"        alt="Addison">
+        <img src="assets/light/fastbill.png"       alt="FastBill">
+        <!-- Loop duplicate (must mirror the original set) -->
+        <img src="assets/light/lexware-office.png" alt="" aria-hidden="true">
+        <img src="assets/common/datev.png"         alt="" aria-hidden="true">
+        <img src="assets/light/addison.png"        alt="" aria-hidden="true">
+        <img src="assets/light/fastbill.png"       alt="" aria-hidden="true">
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
