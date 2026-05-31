@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark light">
+  <title>GetMyInvoices Header — Mobile / Dark</title>
+  <link rel="stylesheet" href="style-mobile.css">
+</head>
+<body>
+
+  <!--
+    ═══════════════════════════════════════════════════════════════════════════
+    GetMyInvoices Website Header — MOBILE (portrait) DARK variant
+    ───────────────────────────────────────────────────────────────────────────
+    Vertical stack of three regions:
+
+      TOP     Portal box with 8 logos orbiting along the dashed border path.
+              Inner white box with a per-page swappable portal logo.
+      MIDDLE  Sync center with download icon. Return-arrow bubbles sit ABOVE
+              and BELOW the center circle (overlap the circle edge like
+              earphones). "IN" invoice slips float to the upper-right.
+      BOTTOM  Smartphone with infinite-scroll list of accounting export targets.
+
+    Arrows between regions point DOWNWARD.
+    Drag + wheel interactions identical to desktop (shared script.js).
+    Canvas: 380 × 700 (portrait, tightened spacing).
+    ═══════════════════════════════════════════════════════════════════════════
+  -->
+
+  <div class="header-graphic">
+
+    <svg class="bg-svg" viewBox="0 0 380 700"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+      <defs>
+        <linearGradient id="bgGradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"   stop-color="#000000"/>
+          <stop offset="24%"  stop-color="#082540"/>
+          <stop offset="46%"  stop-color="#082540"/>
+          <stop offset="100%" stop-color="#000000"/>
+        </linearGradient>
+
+        <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="12" result="blur"/>
+          <feFlood flood-color="#44A4DC" flood-opacity="0.95" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+
+        <filter id="cyanGlowStrong" x="-100%" y="-100%" width="300%" height="300%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="18" result="blur"/>
+          <feFlood flood-color="#44A4DC" flood-opacity="1" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- ═══════════════ TOP: PORTAL BOX ═══════════════ -->
+      <rect x="80" y="20" width="220" height="220" rx="14" ry="14"
+            fill="url(#bgGradient)"
+            stroke="#3c6e9d" stroke-width="2.85"
+            stroke-dasharray="8,4"/>
+
+      <!-- Inner white box -->
+      <g filter="url(#cyanGlow)">
+        <rect x="125" y="65" width="130" height="130" rx="8" ry="8"
+              fill="#fff" stroke="#3c6e9d" stroke-width="2.85"/>
+      </g>
+
+      <!-- DHL logo (★ DYNAMIC SWAP TARGET — replace per portal subpage) -->
+      <image href="assets/common/dhl.png" x="140" y="111" width="100" height="35"
+             preserveAspectRatio="xMidYMid meet"/>
+
+      <!-- ═══════════════ ARROW 1: Portal → Center (original shape, rotated 90°, scaled 70%) ═══════════════ -->
+      <g transform="translate(190 261) rotate(90) scale(0.7) translate(-309.28 -168.87)" fill="#fff">
+        <path d="M 286.6 174.19 L 319.55 174.00
+                 a 3.95 3.95 0 0 0 3.92 -3.97 v -0.68
+                 a 3.95 3.95 0 0 0 -3.97 -3.92 L 286.55 165.62
+                 a 3.95 3.95 0 0 0 -3.92 3.97 v 0.68
+                 a 3.95 3.95 0 0 0 3.97 3.92 z"/>
+        <path d="M 322.22 159.07 l 9.79 9.2 a 1.94 1.94 0 0 1 0 2.82
+                 l -9.79 9.2 a 1.27 1.27 0 0 1 -1.75 0
+                 a 1.13 1.13 0 0 1 -0.36 -0.82 v -19.59
+                 a 1.16 1.16 0 0 1 1.24 -1.16
+                 a 1.27 1.27 0 0 1 0.87 0.34"/>
+      </g>
+
+      <!-- ═══════════════ MIDDLE: SYNC CENTER ═══════════════ -->
+
+      <!-- ARROW 2: Center → Phone — same scale (0.7) as Arrow 1.
+           Drawn BEFORE the circle so its tail is hidden behind the circle bottom.
+           Tip touches the phone top border. -->
+      <g transform="translate(190 419) rotate(90) scale(0.7) translate(-309.28 -168.87)" fill="#fff">
+        <path d="M 286.6 174.19 L 319.55 174.00
+                 a 3.95 3.95 0 0 0 3.92 -3.97 v -0.68
+                 a 3.95 3.95 0 0 0 -3.97 -3.92 L 286.55 165.62
+                 a 3.95 3.95 0 0 0 -3.92 3.97 v 0.68
+                 a 3.95 3.95 0 0 0 3.97 3.92 z"/>
+        <path d="M 322.22 159.07 l 9.79 9.2 a 1.94 1.94 0 0 1 0 2.82
+                 l -9.79 9.2 a 1.27 1.27 0 0 1 -1.75 0
+                 a 1.13 1.13 0 0 1 -0.36 -0.82 v -19.59
+                 a 1.16 1.16 0 0 1 1.24 -1.16
+                 a 1.27 1.27 0 0 1 0.87 0.34"/>
+      </g>
+
+      <!-- "IN" invoice slips — drawn FIRST so they appear partly covered by the circle.
+           Positioned at the RIGHT side of the circle, more outside than before. -->
+      <image href="assets/dark/invoices.svg" x="232" y="315" width="60" height="58"/>
+
+      <!-- Sync circle (opaque fill hides the part of the slips behind it) -->
+      <g filter="url(#cyanGlow)">
+        <circle cx="190" cy="355" r="53"
+                fill="url(#bgGradient)" stroke="#3c6e9d" stroke-width="3"/>
+      </g>
+
+      <!-- Download icon inside circle (scaled from desktop original) -->
+      <g transform="translate(190 355) scale(0.65) translate(-465.63 -171.55)">
+        <path fill="#4499d1" d="M465.63,122.19 c-27.25,0-49.36,22.11-49.36,49.36
+                                s22.11,49.36,49.36,49.36 s49.36-22.11,49.36-49.36
+                                s-22.11-49.36-49.36-49.36 z
+                                M465.63,209.77 c-21.08,0-38.22-17.14-38.22-38.22
+                                c0-19.16,14.16-35.06,32.56-37.8 v44.96
+                                l-15.08-14.96 v17.31 l20.57,20.57 l20.74-20.57
+                                v-17.48 l-15.34,15.21 v-45.1
+                                c18.61,2.56,32.99,18.55,32.99,37.85
+                                c0,21.08-17.14,38.22-38.22,38.22 z"/>
+      </g>
+
+      <!-- TOP return-arrow bubble — drawn AFTER circle so it sits in front, overlapping circle top -->
+      <g filter="url(#cyanGlowStrong)">
+        <image href="assets/dark/return-arrow.svg"
+               x="170" y="283" width="40" height="40"/>
+      </g>
+
+      <!-- BOTTOM return-arrow bubble — drawn AFTER circle so it sits in front, overlapping circle bottom -->
+      <g filter="url(#cyanGlowStrong)">
+        <image href="assets/dark/return-arrow.svg"
+               x="170" y="385" width="40" height="40"/>
+      </g>
+
+      <!-- ═══════════════ BOTTOM: SMARTPHONE ═══════════════ -->
+      <!-- Moved up to y=435 so Arrow 2 (scale 0.7, tip at y=435) lands exactly on the phone border,
+           and Arrow 2's tail (y=403) sits inside the circle for the "hidden behind GMI" look. -->
+      <g filter="url(#cyanGlow)">
+        <rect x="125" y="435" width="130" height="255"
+              rx="11.29" ry="11.29"
+              fill="#060608" stroke="#3c6e9d" stroke-width="2.85"/>
+      </g>
+
+    </svg>
+
+
+    <!-- Drag hitzone for portal orbit (covers portal box + orbital extension) -->
+    <div class="orbit-hitzone" aria-hidden="true"></div>
+
+
+    <!-- ═══════════════ 8 PORTAL LOGOS — orbit ═══════════════ -->
+    <div class="logos-orbit">
+      <div class="logo-anchor" style="--start-frac: 0.05;">
+        <div class="logo-box"><img src="assets/common/google.svg" alt="Google"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.174;">
+        <div class="logo-box"><img src="assets/common/facebook.svg" alt="Facebook"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.30;">
+        <div class="logo-box"><img src="assets/common/adobe.svg" alt="Adobe"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.424;">
+        <div class="logo-box"><img src="assets/common/google.svg" alt="Google"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.55;">
+        <div class="logo-box"><img src="assets/common/spotify.svg" alt="Spotify"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.674;">
+        <div class="logo-box"><img src="assets/common/vodafone.svg" alt="Vodafone"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.80;">
+        <div class="logo-box"><img src="assets/common/openai.svg" alt="OpenAI"></div>
+      </div>
+      <div class="logo-anchor" style="--start-frac: 0.924;">
+        <div class="logo-box"><img src="assets/common/amazon.svg" alt="Amazon"></div>
+      </div>
+    </div>
+
+
+    <!-- ═══════════════ SMARTPHONE CONTENT — infinite scroll ═══════════════ -->
+    <div class="phone-content">
+      <div class="phone-scroll">
+        <img src="assets/dark/lexware-office.png" alt="Lexware Office">
+        <img src="assets/common/datev.png"        alt="DATEV">
+        <img src="assets/dark/addison.png"        alt="Addison">
+        <img src="assets/dark/fastbill.png"       alt="FastBill">
+        <!-- Loop duplicate (must mirror the original set) -->
+        <img src="assets/dark/lexware-office.png" alt="" aria-hidden="true">
+        <img src="assets/common/datev.png"        alt="" aria-hidden="true">
+        <img src="assets/dark/addison.png"        alt="" aria-hidden="true">
+        <img src="assets/dark/fastbill.png"       alt="" aria-hidden="true">
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

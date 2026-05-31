@@ -1,0 +1,154 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   GetMyInvoices Website Header — MOBILE (portrait) stylesheet
+   Used by index-mobile.html only.
+   Canvas: 380 × 700 (portrait stack of portal → center → phone).
+   Shares script.js with the desktop variant — only paths/positions differ.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─── 1. Theme tokens ─────────────────────────────────────────────────────── */
+:root {
+  --orbit-duration:  60;
+  --scroll-duration: 16;
+  --glow-color:      rgba(68, 164, 220, 0.9);
+  color-scheme: dark light;
+}
+
+/* ─── 2. Reset / base ─────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+/* ─── 3. Header composition (portrait canvas, scalable) ───────────────────── */
+.header-graphic {
+  position: relative;
+  width:  380px;
+  height: 700px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Allow scaling on really narrow screens (e.g. iPhone SE) */
+@media (max-width: 380px) {
+  .header-graphic {
+    width: 100vw;
+    height: calc(100vw * (700 / 380));
+  }
+}
+
+.bg-svg {
+  display: block;
+  width:  100%;
+  height: 100%;
+}
+
+
+/* ─── 4. Logo orbit (8 portal logos on a rectangular path) ────────────────
+   Portal box in this layout:
+     SVG coords: x=80, y=20, 220×220 → center (190, 130)
+     As % of 380×700: 50% from left, 18.57% from top
+   ─────────────────────────────────────────────────────────────────────────── */
+.logos-orbit {
+  position: absolute;
+  left: 50%;
+  top:  18.57%;
+  width:  0;
+  height: 0;
+}
+
+/* Drag hitzone — covers portal box + orbital extension */
+.orbit-hitzone {
+  position: absolute;
+  left: 13.2%;   /*  50 / 380  */
+  top:  1.4%;    /*  10 / 700  */
+  width:  73.7%; /* 280 / 380  */
+  height: 35.7%; /* 250 / 700  */
+  cursor: grab;
+  z-index: 10;
+}
+.orbit-hitzone.dragging { cursor: grabbing; }
+
+/*
+  Each .logo-anchor follows the same rounded-rectangle path.
+  Path matches the 220×220 portal box with 14px corner radius.
+  Straight segments end at ±96 (=110−14). Corners at ±110.
+*/
+.logo-anchor {
+  position: absolute;
+  top:  0;
+  left: 0;
+  width:  0;
+  height: 0;
+
+  offset-path: path('M -96 -110 L 96 -110 A 14 14 0 0 1 110 -96 L 110 96 A 14 14 0 0 1 96 110 L -96 110 A 14 14 0 0 1 -110 96 L -110 -96 A 14 14 0 0 1 -96 -110 Z');
+  offset-rotate:   0deg;
+  offset-distance: calc(var(--start-frac, 0) * 100%);
+}
+
+.logo-box {
+  position: absolute;
+  top:  0;
+  left: 0;
+  width:  38px;
+  height: 38px;
+  margin: -19px;
+  padding: 8px;
+  border-radius: 7px;
+  background: #fff;
+  filter: drop-shadow(0 0 10px var(--glow-color));
+}
+
+.logo-box img {
+  display: block;
+  width:  100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+
+/* ─── 5. Smartphone content (infinite scroll of export logos) ────────────
+   Phone in this layout (moved up so Arrow 2's tip lands on its border):
+     SVG coords: x=125, y=435, 130×255
+     Visible scroll area inside (with bezel padding):
+       x=137, y=460, width=106, height=205
+     As % of 380×700:
+       left=36.05%, top=65.71%, width=27.89%, height=29.29%
+   ─────────────────────────────────────────────────────────────────────────── */
+.phone-content {
+  position: absolute;
+  left:  36.05%;
+  top:   65.71%;
+  width:  27.89%;
+  height: 29.29%;
+  overflow: hidden;
+  cursor: ns-resize;
+
+  -webkit-mask-image: linear-gradient(to bottom,
+    transparent 0%, #000 15%, #000 85%, transparent 100%);
+          mask-image: linear-gradient(to bottom,
+    transparent 0%, #000 15%, #000 85%, transparent 100%);
+}
+
+.phone-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  padding: 28px 6px;
+}
+
+.phone-scroll img {
+  width:  90%;
+  height: auto;
+  max-height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+
+/* ─── 6. Animation is JS-driven ─────────────────────────────────────────── */
+/* See script.js (shared with desktop). */
